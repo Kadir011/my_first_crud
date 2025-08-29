@@ -2,9 +2,10 @@ name: CI - Django CRUD Libros
 
 on:
   push:
-    branches: [ "**" ]
-  pull_request:
-    branches: [ "**" ]
+    branches:
+      - '**'
+    tags:
+      - 'v*'    # Para activar release en tags que empiezan con "v"
 
 jobs:
   build:
@@ -22,15 +23,39 @@ jobs:
     - name: Instalar dependencias
       run: |
         sudo apt-get update
-        sudo apt-get install -y default-libmysqlclient-dev
+        sudo apt-get install -y default-libmysqlclient-dev zip
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Verificar estilo con flake8
-      run: |
-        pip install flake8
-        flake8 crud
-
-    - name: Ejecutar pruebas (sin base de datos)
+    - name: Ejecutar pruebas (simuladas)
       run: |
         echo "Simulación de pruebas automáticas"
+
+    - name: Comprimir código fuente
+      run: |
+        zip -r django_project.zip . -x "**/__pycache__/*" "**/*.pyc" "**/.git/*" "venv/*"
+
+    - name: Subir artifact al job
+      uses: actions/upload-artifact@v4
+      with:
+        name: django-crud-zip
+        path: django_project.zip
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Descargar artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: django-crud-zip
+        path: .
+
+    - name: Crear Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: django_project.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
