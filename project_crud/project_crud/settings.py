@@ -86,9 +86,9 @@ MESSAGE_TAGS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bd_crud_2', 
-        'USER': 'kadir11', 
-        'PASSWORD': 'kb11',
+        'NAME': 'crud_biblioteca', 
+        'USER': 'root', 
+        'PASSWORD': '',
         'HOST': 'localhost', 
         'PORT': '3306', 
     } 
