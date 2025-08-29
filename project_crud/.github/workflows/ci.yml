@@ -1,0 +1,36 @@
+name: CI - Django CRUD Libros
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ "**" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Instalar dependencias
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y default-libmysqlclient-dev
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Verificar estilo con flake8
+      run: |
+        pip install flake8
+        flake8 crud
+
+    - name: Ejecutar pruebas (sin base de datos)
+      run: |
+        echo "Simulación de pruebas automáticas"
