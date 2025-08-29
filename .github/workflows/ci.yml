@@ -57,4 +57,4 @@ jobs:
       with:
         files: django_project.zip
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} // Token para autenticación
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
