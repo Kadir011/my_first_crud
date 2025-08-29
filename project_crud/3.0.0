@@ -1,0 +1,4 @@
+Requirement already satisfied: django in c:\users\unemi-lr14\desktop\taller\my_first_crud\venv\lib\site-packages (5.2.5)
+Requirement already satisfied: asgiref>=3.8.1 in c:\users\unemi-lr14\desktop\taller\my_first_crud\venv\lib\site-packages (from django) (3.9.1)
+Requirement already satisfied: sqlparse>=0.3.1 in c:\users\unemi-lr14\desktop\taller\my_first_crud\venv\lib\site-packages (from django) (0.5.3)
+Requirement already satisfied: tzdata in c:\users\unemi-lr14\desktop\taller\my_first_crud\venv\lib\site-packages (from django) (2025.2)
